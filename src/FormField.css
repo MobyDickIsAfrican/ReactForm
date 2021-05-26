@@ -1,12 +1,19 @@
 .field-container{
     width: 100%;
     margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .input-tag{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 5px;
-    margin-bottom: 5px;
+}
+
+.form-error{
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+    margin-top: 0px;
 }

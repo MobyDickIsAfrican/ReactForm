@@ -3,44 +3,38 @@ class Validator{
     costructor(data){
         this.data = data
         this.cleanedData = null; // is set to string by validateText() and validateEmail
-        this.error = null;
+        this.error = "";
     };
-    validate(type){
+    validate(type, data){
         if(type == "text"){
-            return this.validateText(type);
+            return this.validateText(data);
         } else if(type === "tel"){
-            return this.validateNumber(type);
+            return this.validateNumber(data);
         } else if(type === "email"){
-            return this.validateEmail(type);
+            return this.validateEmail(data);
         }
     };
     getCleanedData(){
-        if(!this.cleanedData){
-            throw new Error("data has not been cleaned or there are no errors");
-        }
+        return this.cleanedData;
     };
     getError(){
         return this.error;
     };
     validateText(text){
-        // might want to add some more cases to have more specialised error messages
-        if(text === "text"){
-            const newText = text.replace(/[.*+?^${}()\[\]\\]/g, '\\$&');
-            this.cleanedData = newText;
-            return true
-        };
-        this.error = "invalid text";
-        return false;
+        const newText = text.replace(/[.*+?^${}()\[\]\\]/g, '\\$&');
+        this.cleanedData = newText;
+        return true
     };
     //this is a cell number, not a natural and/or real number
     //you might want to use a 3rd party library for this
     validateNumber(number){
-        const numberRegX = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+        console.log(number);
+        const numberRegX = /^\d+$/;
         if(numberRegX.test(number)){
             this.cleanedData = number;
             return true;
         };
-        this.error = number;
+        this.error = "invalid number";
         return false;
     };
     //you might want to use a 3rd party library for this or send verification email
@@ -51,7 +45,8 @@ class Validator{
             return true;
         };
         this.error = "invalid email"
-        return false;
+        //have to return true, because email can only be verified on submission, not onChange
+        return true;
     };
 };
 

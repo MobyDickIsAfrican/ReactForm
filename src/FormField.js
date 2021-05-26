@@ -13,7 +13,8 @@ class FormField extends Component{
         return this.props.handleChange(this.props.name, this.props.type, e.target.value);
     }
     render(){
-        console.log(this.props);
+        const error = (this.props.error) ? (<span className="form-error">{this.props.error}</span>)
+        : null;
         return (
             <div className="field-container">
                 <label className="field-label">
@@ -28,6 +29,7 @@ class FormField extends Component{
                             type: this.props.type,
                         }
                     )}
+                    {error}
                 </label>
             </div>
         )

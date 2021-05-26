@@ -23,15 +23,16 @@ class ReactForm extends Component{
   };
   handleChange(name, type, data){
     const validator = new Validator(data)
-    if(validator.validate(type)){
+    if(validator.validate(type, data)){
       return this.setState((state) => {
         //update FormField state and set form error to false
         //if field is not updated to remove the error, error persists
         return {fields: {...state.fields, [name]: {...state.fields[name], 
-          data: validator.getCleanedData()}}, formError: false}
+          data: validator.getCleanedData(), error: validator.getError()}}, formError: false}
       });
     } else{
       return this.setState((state) => {
+        
         //update FormField state and set form error to true
         return {fields: {...state.fields, [name]: {...state.fields[name], 
         error: validator.getError()}}, formError: true};
@@ -55,7 +56,7 @@ class ReactForm extends Component{
         'Content-Type': 'application/json;charset=utf-8;'
       },
       body: JSON.stringify(formData)
-    }
+    };
     return fetch(this.props.endpoint, options);
   };
   setInitialState(children){
