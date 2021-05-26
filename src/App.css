@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;;
+}
+
+.form-wrapper{
+  width: 50%;
+}
